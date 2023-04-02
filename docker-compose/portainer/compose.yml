@@ -1,0 +1,23 @@
+# This Docker Compose file sets up a local Portainer instance using Docker containers.
+# The 'portainer_srv' service uses the official Portainer Docker image.
+# We map the WordPress files to a local directory, and use environment variables to configure the database settings.
+# We also expose the WordPress container's port 8000 to the host machine, so we can access the site in a browser.
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+
+services:
+
+  # Portainer Section
+  portainer_srv:
+    image: portainer/portainer-ce:alpine
+    container_name: portainer_prt
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "9000:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "prt_data:/data"
+    restart: always
+
+# Shared Resources
+volumes:
+  prt_data:
