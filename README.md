@@ -15,12 +15,13 @@ These samples provide a starting point for how to integrate different services u
 - [Other Useful Stuff](#other-useful-stuff)
 
 ## Docker Compose applications with multiple integrated services samples
-- [`Wordpress / MySQL / phpmyAdmin`](docker-compose/wordpress-mysql/compose.yml) - Sample Wordpress, MySQL and phpmyAdmin stack
+- [`Wordpress / MySQL`](docker-compose/wordpress-mysql/compose.yml) - Sample Wordpress and MySQL stack
 
 
 ## Docker Compose single service samples
 - [`Portainer`](docker-compose/portainer/compose.yml) - Sample Portainer instance
+- [`PostgreSQL`](docker-compose/postgresql/compose.yml) - Sample PostgreSQL instance with pgAdmin support
 
 
 ## Other Useful Stuff
-- [`Prometheus / Graphana`](docker-compose/prometheus-graphana/compose.yml) - Sample Prometheus and Graphana monitoring stack
+- [`Prometheus / Grafana`](docker-compose/prometheus-grafana/compose.yml) - Sample Prometheus and Grafana monitoring stack

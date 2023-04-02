@@ -1,0 +1,41 @@
+# This Docker Compose file sets up a local PostgreSQL instance using Docker containers.
+# The 'postgresql_srv' service uses the official PostgreSQL Docker image.
+# We expose the PostgreSQL container's port 5432 to the host machine port 5432, so we can access the databases remotely.
+# We also deploy pgAdmin container and expose port 5050 to the host machine port 5050, so as to be able to manage PostgreSQL databases from respective site.
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+
+version: "3"
+
+# Services Definitions
+services:
+  
+  # PostgreSQL Section
+  postgresqldb_sev:
+    image: postgres:latest
+    container_name: db_postgresql
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=user
+      - POSTGRES_DB=postgres
+    networks:
+      - pdb-net
+
+  # pgAdmin Section
+  pgadmin_srv:
+    image: dpage/pgadmin4:latest
+    container_name: db_pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    networks:
+      - pdb-net
+      
+# Shared Resources
+networks:
+  pdb-net:
