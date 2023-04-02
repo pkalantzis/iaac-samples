@@ -1,0 +1,44 @@
+# This Docker Compose file sets up a local Prometheus and Grafana development environment using Docker containers.
+# The 'prometheus_srv' service uses the official Prometheus Docker image, and the 'grafna_srv' service uses the Graphana Docker image.
+# We expose the Prometheus and Graphana containers' ports 9090 and 3000 to the host machine ports 9090 and 3000  respectively, so we can access the sites in a browser.
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+
+version: "3"
+
+services:
+
+  # Prometheus Section
+  prometheus_srv:
+    image: prom/prometheus
+    container_name: monitor_prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prom_data:/prometheus
+    restart: always
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+    networks:
+      - mon-net
+
+  # Grafana Section
+  grafana_srv:
+    image: grafana/grafana
+    container_name: monitor_grafana
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+    networks:
+      - mon-net
+
+# Shared Resources
+networks:
+  mon-net:
+volumes:
+  prom_data:

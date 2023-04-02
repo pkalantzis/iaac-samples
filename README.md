@@ -1,4 +1,4 @@
-# Awesome Resources Collection
+# Infrastructure-as-a-Code (IaaC) Resources Collection
 
 > A curated list of Docker Compose and other samples.
 
@@ -15,8 +15,7 @@ These samples provide a starting point for how to integrate different services u
 - [Other Useful Stuff](#other-useful-stuff)
 
 ## Docker Compose applications with multiple integrated services samples
-
-- [`Wordpress / MySQL / phpmyAdmin`](docker-compose/wordpress/compose.yml) - Sample Wordpress, MySQL and phpmyAdmin stack
+- [`Wordpress / MySQL / phpmyAdmin`](docker-compose/wordpress-mysql/compose.yml) - Sample Wordpress, MySQL and phpmyAdmin stack
 
 
 ## Docker Compose single service samples
@@ -24,3 +23,4 @@ These samples provide a starting point for how to integrate different services u
 
 
 ## Other Useful Stuff
+- [`Prometheus / Graphana`](docker-compose/prometheus-graphana/compose.yml) - Sample Prometheus and Graphana monitoring stack

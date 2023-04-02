@@ -23,21 +23,6 @@ services:
     networks:
       - wp-net
  
-  # phpmyadmin Section
-  phpmyadmin_srv:
-    depends_on:
-      - mysqldb_srv
-    image: phpmyadmin
-    container_name: wordpress_pma
-    restart: always
-    ports:
-      - '8001:80'
-    environment:
-      PMA_HOST: mysqldb_srv
-      MYSQL_ROOT_PASSWORD: password 
-    networks:
-      - wp-net
- 
   # Wordpress Section
   wordpress_srv:
     depends_on:
