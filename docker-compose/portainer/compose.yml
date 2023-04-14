@@ -1,6 +1,6 @@
 # This Docker Compose file sets up a local Portainer instance using Docker containers.
 # The 'portainer_srv' service uses the official Portainer Docker image.
-# We expose the Portainer container's port 9000 to the host machine port 9000, so we can access the site in a browser.
+# We expose the Portainer container's port 9000 to the host machine port 9000, so we can access the web interface in a browser.
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 
 version: "3"
@@ -8,18 +8,18 @@ version: "3"
 # Services Definitions
 services:
 
-  # Portainer Section
+  # Portainer Service Section
   portainer_srv:
     image: portainer/portainer-ce:alpine
-    container_name: portainer_prt
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "prt_data:/data"
+    container_name: portainer_srv
     restart: always
-    command: -H unix:///var/run/docker.sock
     ports:
       - "9000:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - portainer_data_vol:/data
+    command: -H unix:///var/run/docker.sock
 
-# Shared Resources
+# Shared Resources Section
 volumes:
-  prt_data:
+  portainer_data_vol:

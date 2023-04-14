@@ -1,6 +1,6 @@
 # This Docker Compose file sets up a local Prometheus and Grafana development environment using Docker containers.
-# The 'prometheus_srv' service uses the official Prometheus Docker image, and the 'grafna_srv' service uses the Graphana Docker image.
-# We expose the Prometheus and Graphana containers' ports 9090 and 3000 to the host machine ports 9090 and 3000  respectively, so we can access the sites in a browser.
+# The 'prometheus_srv' service uses the official Prometheus Docker image, and the 'grafana_srv' service uses the Graphana Docker image.
+# We expose the Prometheus and Graphana containers' ports 9090 and 3000 to the host machine ports 9090 and 3000 respectively, so we can access the respective interfaces in a browser.
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 
 version: "3"
@@ -8,38 +8,40 @@ version: "3"
 # Services Definitions
 services:
 
-  # Prometheus Section
+  # Prometheus Service Section
   prometheus_srv:
     image: prom/prometheus
     container_name: monitor_prometheus
-    volumes:
-      - ./prometheus:/etc/prometheus
-      - prom_data:/prometheus
     restart: always
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - 9090:9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - monitor_prom_data_vol:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
     networks:
-      - mon-net
+      - monitor_prom_net
 
-  # Grafana Section
+  # Grafana Service Section
   grafana_srv:
     image: grafana/grafana
     container_name: monitor_grafana
-    volumes:
-      - ./grafana:/etc/grafana/provisioning/datasources
     restart: always
     ports:
       - 3000:3000
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+      - monitor_graf_data_vol://var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     networks:
-      - mon-net
+      - monitor_prom_net
 
-# Shared Resources
-networks:
-  mon-net:
+# Shared Resources Section
 volumes:
-  prom_data:
+  monitor_prom_data_vol:
+  monitor_graf_data_vol:  
+networks:
+  monitor_prom_net:

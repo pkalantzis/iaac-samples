@@ -1,7 +1,8 @@
 # This Docker Compose file sets up a local WordPress development environment using Docker containers.
 # The 'wordpress_srv' service uses the official WordPress Docker image, and the 'mysqldb_srv' service uses the MySQL Docker image.
 # We map the WordPress files to a local directory, and use environment variables to configure the database settings.
-# We also expose the WordPress container's port 8000 to the host machine, so we can access the site in a browser.
+# We expose the PostgreSQL container's port 3306 to the host machine port 3306, so we can access the website database remotely.
+# We also expose the WordPress container's port 80 to the host machine ports 8000, so we can access the site in a browser.
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 
 version: "3" 
@@ -9,29 +10,30 @@ version: "3"
 # Services Definitions
 services:
 
-  # mySQL Section
+  # mySQL Service Section
   mysqldb_srv:
     image: mysql:latest
     container_name: wordpress_db
+    restart: always
+    ports:
+      - 3306:3306
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpre8
       MYSQL_PASSWORD: wordpress
     networks:
-      - wp-net
+      - wp_net
  
-  # Wordpress Section
+  # Wordpress Service Section
   wordpress_srv:
-    depends_on:
-      - mysqldb_srv
     image: wordpress:latest
     container_name: wordpress_wp
-    volumes: ['./wpress/:/var/www/html']
     restart: always
+    depends_on:
+      - mysqldb_srv
     ports:
       - '8000:80'
     environment:
@@ -39,10 +41,10 @@ services:
       WORDPRESS_DB_USER: wordpre8
       WORDPRESS_DB_PASSWORD: wordpress
     networks:
-      - wp-net
+      - wp_net
 
-# Shared Resources
-networks:
-  wp-net:
+# Shared Resources Section
 volumes:
-  db_data:
+  db_wp_data_vol:
+networks:
+  wp_net:

@@ -1,7 +1,7 @@
-# This Docker Compose file sets up a local PostgreSQL instance using Docker containers.
-# The 'postgresql_srv' service uses the official PostgreSQL Docker image.
+# This Docker Compose file sets up local PostgreSQL and pgAdmin instances using Docker containers.
+# The 'postgresql_srv' and 'pgadmin_srv' services use the official Docker images.
 # We expose the PostgreSQL container's port 5432 to the host machine port 5432, so we can access the databases remotely.
-# We also deploy pgAdmin container and expose port 5050 to the host machine port 5050, so as to be able to manage PostgreSQL databases from respective site.
+# We also expose the container's port 80 to the host machine port 8888, so as to be able to manage PostgreSQL databases from respective web interface.
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 
 version: "3"
@@ -9,33 +9,42 @@ version: "3"
 # Services Definitions
 services:
   
-  # PostgreSQL Section
-  postgresqldb_sev:
+  # PostgreSQL Service Section
+  postgresqldb_srv:
     image: postgres:latest
-    container_name: db_postgresql
+    container_name: db_postgresql_srv
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
+    volumes:
+      - db_postgres_data_vol:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=user
       - POSTGRES_DB=postgres
     networks:
-      - pdb-net
+      - db_postgres_net
 
-  # pgAdmin Section
+  # pgAdmin Service Section
   pgadmin_srv:
     image: dpage/pgadmin4:latest
-    container_name: db_pgadmin
+    container_name: db_pgadmin_srv
     restart: always
+    depends_on:
+      - postgresqldb_srv
     ports:
-      - "5050:80"
+      - 8888:80
+    volumes:
+      - db_pgadmin_data_vol:/var/lib/pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@email.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     networks:
-      - pdb-net
+      - db_postgres_net
       
-# Shared Resources
+# Shared Resources Section
+volumes:
+  db_postgres_data_vol:
+  db_pgadmin_data_vol:
 networks:
-  pdb-net:
+  db_postgres_net:

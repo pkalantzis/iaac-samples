@@ -1,0 +1,47 @@
+# This Docker Compose file sets up local MariaDB and phpMyAdmin instances using Docker containers.
+# The 'mariadb_srv' and 'phpmyadmin_srv' services use the official Docker images.
+# We expose the MariaDB container's port 3306 to the host machine port 3306, so we can access the databases remotely.
+# We also expose the container's port 80 to the host machine port 8888, so as to be able to manage MariaDB databases from respective web interface.
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+
+version: "3"
+
+# Services Definitions
+services:
+
+  # MariaDB Service Section
+  mariadb_srv:
+    image: mariadb:latest
+    container_name: db_mariadb_srv
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - db_mariadb_data_vol:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_USER: user
+      MARIADB_PASSWORD: user
+    networks:
+      - db_mariadb_net
+
+  # phpmyadmin Service Section
+  phpmyadmin_srv:
+    image: phpmyadmin:latest
+    container_name: db_phpmyadmin_srv
+    restart: always
+    depends_on:
+      - mariadb_srv
+    ports:
+      - 8888:80
+    environment:
+      PMA_HOST: mariadb_srv
+      MARIADB_ROOT_PASSWORD: password 
+    networks:
+      - db_mariadb_net
+
+# Shared Resources Section
+volumes:
+  db_mariadb_data_vol:
+networks:
+  db_mariadb_net:
