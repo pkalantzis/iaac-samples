@@ -1,7 +1,13 @@
 # This Docker Compose file sets up a local Prometheus and Grafana development environment using Docker containers.
-# The 'prometheus_srv' service uses the official Prometheus Docker image, and the 'grafana_srv' service uses the Graphana Docker image.
-# We expose the Prometheus and Graphana containers' ports 9090 and 3000 to the host machine ports 9090 and 3000 respectively, so we can access the respective interfaces in a browser.
+# The 'prometheus_srv' and 'grafana_srv' services use the latest official Prometheus and Graphana Docker images.
+# The Prometheus and Graphana containers' ports 9090 and 3000 are exposed to the host machine ports 9090 and 3000 respectively, so the respective interfaces can be remotely accessible via a browser.
+#
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+# Required configuration and data sources details are incliuded in /prometheus and /grafana folders respectively.
+# To connect to Grafana, you need to use the followng credentials (usenname:admin & password:grafana).
+#
+# The following sample is intended for use in local development environments such as project setups, etc. 
+# This sample must not be deployed in production environments.
 
 version: "3"
 
@@ -15,11 +21,11 @@ services:
     restart: always
     ports:
       - 9090:9090
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
     volumes:
       - ./prometheus:/etc/prometheus
       - monitor_prom_data_vol:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
     networks:
       - monitor_prom_net
 
@@ -30,12 +36,12 @@ services:
     restart: always
     ports:
       - 3000:3000
-    volumes:
-      - ./grafana:/etc/grafana/provisioning/datasources
-      - monitor_graf_data_vol://var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+      - monitor_graf_data_vol://var/lib/grafana
     networks:
       - monitor_prom_net
 

@@ -1,7 +1,12 @@
 # This Docker Compose file sets up a local Portainer instance using Docker containers.
 # The 'portainer_srv' service uses the official Portainer Docker image.
-# We expose the Portainer container's port 9000 to the host machine port 9000, so we can access the web interface in a browser.
+# The Portainer container's port 9000 is exposed to the host machine port 9000, so the web interface can be accessed remotely in a browser.
+#
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+# You will be asked to setup the initial adminsitration password during initialisation step of the setup.
+#
+# The following sample is intended for use in local development environments such as project setups, etc. 
+# This sample must not be deployed in production environments.
 
 version: "3"
 

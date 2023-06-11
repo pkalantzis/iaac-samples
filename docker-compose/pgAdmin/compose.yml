@@ -1,0 +1,27 @@
+# This Docker Compose file sets up a local pgAdmin instance using Docker containers.
+# The 'pgadmin_srv' service uses the latest official pgAdmin Docker image.
+# The pgAdmin container's port 80 is exposed to the host machine port 15432, so as databases can be accesswed remotely from respective web interface.
+#
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+#
+# The following sample is intended for use in local development environments such as project setups, etc. 
+# This sample must not be deployed in production environments.
+
+version: "3"
+
+# Services Definitions
+services:
+
+  # pgadmin Service Section
+  pgadmin_srv:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_srv
+    restart: always
+    ports:
+      - 15432:80
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+# Shared Resources Section
+volumes:
+  pgadmin:

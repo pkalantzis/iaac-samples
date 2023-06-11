@@ -1,0 +1,47 @@
+# This Docker Compose file sets up a local Gitlab Community Edition Continuous Integration and Continuous Delivery (CI/CD) environment using Docker containers.
+# The 'gitlab_srv' service uses the official Gitlab CE Docker image, and the 'gitlabrun_srv' service uses the respective Gitlab Runner Docker image.
+# The Gitlab CE container's ports 22, 80 and 443 are exposed to the host machine ports 2222, 8080, and 8443 respectively, so as the environment can be accessed remotely.
+#
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+# You will be required to login with the default username (root) and password the outcome of the following command: docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
+
+# The following sample is intended for use in local development environments such as project setups, etc. 
+# This sample must not be deployed in production environments.
+
+version: "3"
+
+# Services Definitions
+services:
+
+  gitlab_srv:
+    image: gitlab/gitlab-ce
+    container_name: gitlab_srv
+    restart: always  
+    hostname: localhost
+    ports:
+      - 8080:80
+      - 8443:443
+      - 2222:22
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+    networks:
+      - gitlab_net
+
+  gitlabrun_srv:
+    image: gitlab/gitlab-runner:alpine
+    container_name: gitlabrun_srv    
+    restart: always
+    depends_on:
+      - gitlab_srv
+    networks:
+      - gitlab_net
+
+# Shared Resources Section
+networks:
+  gitlab_net:
+volumes:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:

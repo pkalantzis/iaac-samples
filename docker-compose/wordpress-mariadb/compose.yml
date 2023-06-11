@@ -1,6 +1,6 @@
 # This Docker Compose file sets up a local WordPress development environment using Docker containers.
-# The 'wordpress_srv' and 'mysqldb_srv' services use the latest official WordPress and MySQL Docker images.
-# The MySQL container's port 3306 is exposed to the host machine port 3306, so as databases can be accessed remotely.
+# The 'wordpress_srv' and 'mariadb_srv' services use the latest official WordPress and MariaDB Docker images.
+# The MAriaDB container's port 3306 is exposed to the host machine port 3306, so as databases can be accessed remotely.
 # The WordPress container's port 80 is also exposed to the host machine port 8000, so as the Wordpress webiste can be managed remotely from respective web interface.
 # The WordPress files are also mapped to a local directory, and variables are used to configure the database settings.
 #
@@ -16,8 +16,8 @@ version: "3"
 services:
 
   # mySQL Service Section
-  mysqldb_srv:
-    image: mysql:latest
+  mariadb_srv:
+    image: mariadb:latest
     container_name: wordpress_db
     restart: always
     ports:
@@ -38,11 +38,11 @@ services:
     container_name: wordpress_wp
     restart: always
     depends_on:
-      - mysqldb_srv
+      - mariadb_srv
     ports:
       - '8000:80'
     environment:
-      WORDPRESS_DB_HOST: mysqldb_srv:3306
+      WORDPRESS_DB_HOST: mariadb_srv:3306
       WORDPRESS_DB_USER: wordpre8
       WORDPRESS_DB_PASSWORD: wordpress
     networks:
