@@ -1,0 +1,56 @@
+# This Docker Compose file sets up a local SonarQube Community Edition Static Application Security Testing (SAST) environment using Docker containers.
+# The 'sonar_srv' service uses the official SonarQube CE Docker image, and the 'postgre_srv' service uses the respective PostgreSQL Docker image.
+# The PostgreSQL container's port 5432 is exposed to the host machine port 5432, so as databases can be accessed remotely.
+# The SonarQube container's ports 9000 and 9092 aare also exposed to the host machine ports 9091 and 9092 respectively, so as the SonarQube can be managed remotely from respective web interface.
+#
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+# You will be required to login with the default username (admin) and password (admin) and asked to change the default password immediately.
+#
+# The following sample is intended for use in local development environments such as project setups, etc. 
+# This sample must not be deployed in production environments.
+
+version: "3"
+
+# Services Definitions
+services:
+
+  sonar_srv:
+    image: sonarqube:latest
+    container_name: sonar_srv
+    restart: always
+    depends_on:
+        - postgre_srv
+    ports:
+        - "9091:9000"
+        - "9092:9092"
+    environment:
+        - SONARQUBE_JDBC_USERNAME=sonarqube
+        - SONARQUBE_JDBC_PASSWORD=sonarpass
+        - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
+    volumes:
+        - sonar_conf:/opt/sonarqube/conf
+        - sonar_data:/opt/sonarqube/data
+        - sonar_extensions:/opt/sonarqube/extensions
+        - sonar_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+
+  postgre_srv:
+    image: postgres:latest
+    container_name: postgre_srv
+    restart: always
+    ports:
+        - "5432:5432"   
+    environment:
+        - POSTGRES_USER=sonarqube
+        - POSTGRES_PASSWORD=sonarpass
+        - POSTGRES_DB=sonarqube
+    volumes:
+        - sonar_postgresql:/var/lib/postgresql
+        - sonar_postgre_data:/var/lib/postgresql/data 
+
+volumes:
+    sonar_postgre_data:
+    sonar_bundled-plugins:
+    sonar_conf:
+    sonar_data:
+    sonar_postgresql:
+    sonar_extensions:

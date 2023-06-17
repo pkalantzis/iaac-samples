@@ -4,7 +4,7 @@
 #
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 # You will be required to login with the default username (root) and password the outcome of the following command: docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
-
+#
 # The following sample is intended for use in local development environments such as project setups, etc. 
 # This sample must not be deployed in production environments.
 

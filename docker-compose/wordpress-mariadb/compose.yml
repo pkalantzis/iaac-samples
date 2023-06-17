@@ -1,6 +1,6 @@
 # This Docker Compose file sets up a local WordPress development environment using Docker containers.
 # The 'wordpress_srv' and 'mariadb_srv' services use the latest official WordPress and MariaDB Docker images.
-# The MAriaDB container's port 3306 is exposed to the host machine port 3306, so as databases can be accessed remotely.
+# The MariaDB container's port 3306 is exposed to the host machine port 3306, so as databases can be accessed remotely.
 # The WordPress container's port 80 is also exposed to the host machine port 8000, so as the Wordpress webiste can be managed remotely from respective web interface.
 # The WordPress files are also mapped to a local directory, and variables are used to configure the database settings.
 #

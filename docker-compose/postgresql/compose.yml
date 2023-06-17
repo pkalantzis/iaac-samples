@@ -1,8 +1,13 @@
 # This Docker Compose file sets up local PostgreSQL and pgAdmin instances using Docker containers.
-# The 'postgresql_srv' and 'pgadmin_srv' services use the official Docker images.
-# We expose the PostgreSQL container's port 5432 to the host machine port 5432, so we can access the databases remotely.
-# We also expose the container's port 80 to the host machine port 8888, so as to be able to manage PostgreSQL databases from respective web interface.
+# The 'postgresql_srv' and 'pgadmin_srv' services use the latest official PostgreSQL and pgAdmin images.
+# The PostgreSQL container's port 5432 is exposed to the host machine port 5432, so as databases can be accessed remotely.
+# The pgAdmin container's port 80 is also exposed to the host machine port 15432, so as PostgreSQL databases can be managed remotely from respective web interface.
+#
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+# You will be required to enter the database credentials (username:you@email.com password:admin) to connect.
+#
+# The following sample is intended for use in local development environments such as project setups, etc. 
+# This sample must not be deployed in production environments.
 
 version: "3"
 
@@ -16,12 +21,12 @@ services:
     restart: always
     ports:
       - 5432:5432
-    volumes:
-      - db_postgres_data_vol:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=user
+      - POSTGRES_PASSWORD=passsword
       - POSTGRES_DB=postgres
+    volumes:
+      - db_postgres_data_vol:/var/lib/postgresql/data
     networks:
       - db_postgres_net
 
@@ -33,12 +38,12 @@ services:
     depends_on:
       - postgresqldb_srv
     ports:
-      - 8888:80
+      - 15432:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=you@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - db_pgadmin_data_vol:/var/lib/pgadmin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@email.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
     networks:
       - db_postgres_net
       
