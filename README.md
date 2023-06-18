@@ -33,9 +33,13 @@ These samples provide a starting point for how to integrate different services u
 
 ### Single services
 * [`Apache`](docker-compose/apache/compose.yml) - Sample Apache Web Server instance
-* [`MariaDB`](docker-compose/mariadb/compose.yml) - Sample MariaDB database instance with phpMyAdmin support
-* [`MySQL`](docker-compose/mysql/compose.yml) - Sample MySQL database instance with phpMyAdmin support
-* [`PostgreSQL`](docker-compose/postgresql/compose.yml) - Sample PostgreSQL database instance with pgAdmin support
+* [`MariaDB`](docker-compose/mariadb/compose.yml) - Sample MariaDB database instance
+* [`MariaDB / phoMyAdmin`](docker-compose/mariadb-phpmuadmin/compose.yml) - Sample MariaDB database instance with phpMyAdmin support
+* [`MySQL`](docker-compose/mysql/compose.yml) - Sample MySQL database instance 
+* [`MySQL / phoMyAdmin`](docker-compose/mysql-phpmuadmin/compose.yml) - Sample MySQL database instance with phpMyAdmin support
+* [`Nginx`](docker-compose/nginx/compose.yml) - Sample Nginx Web Server instance
+* [`PostgreSQL`](docker-compose/postgresql/compose.yml) - Sample PostgreSQL database instance
+* [`PostgreSQL / pgAdmin`](docker-compose/postgresql-pgadmin/compose.yml) - Sample PostgreSQL database instance with pgAdmin support
 * [`Redis`](docker-compose/redis/compose.yml) - Sample Redis Cache instance
 
 ### Other interesting useful stuff

@@ -1,6 +1,7 @@
-# This Docker Compose file sets up a local MySQL instance using Docker containers.
-# The 'mysql_srv' service uses the latest official MySQL image.
+# This Docker Compose file sets up local MySQL and phpMyAdmin instances using Docker containers.
+# The 'mysql_srv' and 'phpmyadmin_srv' services use the latest official MySQL and phpMyAdmin Docker images.
 # The MySQL container's port 3306 is exposed to the host machine port 3306, so as databases can be accessed remotely.
+# The phpMyAdmin container's port 80 is also exposed to the host machine port 8888, so as MySQL can be managed remotely from respective web interface.
 #
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 # You will be required to enter the database credentials (username:root password:password) to connect.
@@ -26,6 +27,21 @@ services:
       MYSQL_PASSWORD: user
     volumes:
       - db_mysql_data_vol:/var/lib/mysql
+    networks:
+      - db_mysql_net
+
+  # phpmyadmin Service Section
+  phpmyadmin_srv:
+    image: phpmyadmin:latest
+    container_name: db_phpmyadmin_srv
+    restart: always
+    depends_on:
+      - mysql_srv
+    ports:
+      - 8888:80
+    environment:
+      PMA_HOST: mysql_srv
+      MYSQL_ROOT_PASSWORD: password 
     networks:
       - db_mysql_net
 

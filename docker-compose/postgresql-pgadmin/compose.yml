@@ -1,6 +1,7 @@
-# This Docker Compose file sets up a local PostgreSQL instance using Docker containers.
-# The 'postgresql_srv' service uses the latest official PostgreSQL image.
+# This Docker Compose file sets up local PostgreSQL and pgAdmin instances using Docker containers.
+# The 'postgresql_srv' and 'pgadmin_srv' services use the latest official PostgreSQL and pgAdmin images.
 # The PostgreSQL container's port 5432 is exposed to the host machine port 5432, so as databases can be accessed remotely.
+# The pgAdmin container's port 80 is also exposed to the host machine port 15432, so as PostgreSQL databases can be managed remotely from respective web interface.
 #
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 # You will be required to enter the database credentials (username:you@email.com password:admin) to connect.
@@ -28,9 +29,27 @@ services:
       - db_postgres_data_vol:/var/lib/postgresql/data
     networks:
       - db_postgres_net
+
+  # pgAdmin Service Section
+  pgadmin_srv:
+    image: dpage/pgadmin4:latest
+    container_name: db_pgadmin_srv
+    restart: always
+    depends_on:
+      - postgresqldb_srv
+    ports:
+      - 15432:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=you@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - db_pgadmin_data_vol:/var/lib/pgadmin
+    networks:
+      - db_postgres_net
       
 # Shared Resources Section
 volumes:
   db_postgres_data_vol:
+  db_pgadmin_data_vol:
 networks:
   db_postgres_net:
