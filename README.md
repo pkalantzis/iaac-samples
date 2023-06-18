@@ -32,9 +32,11 @@ These samples provide a starting point for how to integrate different services u
 * [`Wordpress / MySQL`](docker-compose/wordpress-mysql/compose.yml) - Sample Wordpress and MySQL stack
 
 ### Single services
+* [`Apache`](docker-compose/apache/compose.yml) - Sample Apache Web Server instance
 * [`MariaDB`](docker-compose/mariadb/compose.yml) - Sample MariaDB database instance with phpMyAdmin support
 * [`MySQL`](docker-compose/mysql/compose.yml) - Sample MySQL database instance with phpMyAdmin support
 * [`PostgreSQL`](docker-compose/postgresql/compose.yml) - Sample PostgreSQL database instance with pgAdmin support
+* [`Redis`](docker-compose/redis/compose.yml) - Sample Redis Cache instance
 
 ### Other interesting useful stuff
 * [`Portainer`](docker-compose/portainer/compose.yml) - Sample Portainer instance

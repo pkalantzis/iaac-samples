@@ -1,0 +1,28 @@
+# This Docker Compose file sets up a local Redis instance using Docker containers.
+# The 'redis_srv' service uses the official Redis Docker image.
+# The Redis container's port 6379 is exposed to the host machine port 6379, so as instances can be accessed remotely.
+#
+# To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
+#
+# The following sample is intended for use in local development environments such as project setups, etc. 
+# This sample must not be deployed in production environments.
+
+version: "3"
+
+# Services Definitions
+services:
+
+  # Redis Service Section
+  redis_srv:
+    image: redis:6.2-alpine
+    container_name: redis_srv
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data_vol:/data
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+
+# Shared Resources Section
+volumes:
+  redis_data_vol:

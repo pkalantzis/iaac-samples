@@ -13,6 +13,7 @@ version: "3"
 # Services Definitions
 services:
 
+  # Gitlab Service Section
   gitlab_srv:
     image: gitlab/gitlab-ce
     container_name: gitlab_srv
@@ -29,6 +30,7 @@ services:
     networks:
       - gitlab_net
 
+  # Gitlab Runner Service Section
   gitlabrun_srv:
     image: gitlab/gitlab-runner:alpine
     container_name: gitlabrun_srv    

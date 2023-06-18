@@ -15,7 +15,7 @@ version: "3"
 # Services Definitions
 services:
 
-  # mySQL Service Section
+  # MariaDB Service Section
   mariadb_srv:
     image: mariadb:latest
     container_name: wordpress_db
@@ -40,7 +40,7 @@ services:
     depends_on:
       - mariadb_srv
     ports:
-      - '8000:80'
+      - 8000:80
     environment:
       WORDPRESS_DB_HOST: mariadb_srv:3306
       WORDPRESS_DB_USER: wordpre8

@@ -40,7 +40,7 @@ services:
     depends_on:
       - mysqldb_srv
     ports:
-      - '8000:80'
+      - 8000:80
     environment:
       WORDPRESS_DB_HOST: mysqldb_srv:3306
       WORDPRESS_DB_USER: wordpre8
