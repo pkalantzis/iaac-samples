@@ -1,8 +1,8 @@
-# This Docker Compose file sets up a local WordPress development environment using Docker containers.
-# The 'wordpress_srv' and 'mysqldb_srv' services use the latest official WordPress and MySQL Docker images.
+# This Docker Compose file sets up a local Joomla development environment using Docker containers.
+# The 'joomla_srv' and 'mysqldb_srv' services use the latest official Joomla and MySQL Docker images.
 # The MySQL container's port 3306 is exposed to the host machine port 3306, so as databases can be accessed remotely.
-# The WordPress container's port 80 is also exposed to the host machine port 8000, so as the Wordpress webiste can be managed remotely from respective web interface.
-# The WordPress files are also mapped to a local directory, and variables are used to configure the database settings.
+# The Joomla container's port 80 is also exposed to the host machine port 8000, so as the Joomla webiste can be managed remotely from respective web interface.
+# The Joomla files are also mapped to a local directory, and variables are used to configure the database settings.
 #
 # To start the environment, run 'docker compose up -d' in this directory, and to stop it, run 'docker compose down'.
 # You will be asked to setup the the Wordpres site details during initialisation step of the setup.
@@ -15,43 +15,42 @@ version: "3"
 # Services Definitions
 services:
  
-  # Wordpress Service Section
-  wordpress_srv:
-    image: wordpress:latest
-    container_name: wordpress_cms
+  # Joomla Service Section
+  joomla_srv:
+    image: joomla:latest
+    container_name: joomla_cms
     restart: always
     depends_on:
       - mysqldb_srv
     ports:
-      - 8000:80
+      - 8080:80
     volumes:
       - ./site:/var/www/html
     environment:
-      WORDPRESS_DB_HOST: mysqldb_srv:3306
-      WORDPRESS_DB_USER: wordpre8
-      WORDPRESS_DB_PASSWORD: wordpress
+      JOOMLA_DB_HOST: mysqldb_srv
+      JOOMLA_DB_PASSWORD: password
     networks:
-      - wp_net
+      - joomla_net
 
   # mySQL Service Section
   mysqldb_srv:
     image: mysql:latest
-    container_name: wordpress_db
+    container_name: joomla_db
     restart: always
     ports:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpre8
-      MYSQL_PASSWORD: wordpress
+#      MYSQL_DATABASE: joomla
+#      MYSQL_USER: juser
+#      MYSQL_PASSWORD: joomlapass
     volumes:
-      - wp_data:/var/lib/mysql
+      - joomla_data:/var/lib/mysql
     networks:
-      - wp_net
+      - joomla_net
 
 # Shared Resources Section
 volumes:
-  wp_data:
+  joomla_data:
 networks:
-  wp_net:
+  joomla_net:

@@ -33,6 +33,8 @@ services:
         - sonar_data:/opt/sonarqube/data
         - sonar_extensions:/opt/sonarqube/extensions
         - sonar_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    networks:
+        - sonar_net
 
   # PostgreSQL Service Section
   postgre_srv:
@@ -48,6 +50,8 @@ services:
     volumes:
         - sonar_postgresql:/var/lib/postgresql
         - sonar_postgre_data:/var/lib/postgresql/data 
+    networks:
+        - sonar_net
 
 # Shared Resources Section
 volumes:
@@ -57,3 +61,5 @@ volumes:
     sonar_data:
     sonar_postgresql:
     sonar_extensions:
+networks:
+    sonar_net:

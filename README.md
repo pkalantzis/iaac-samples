@@ -28,15 +28,18 @@ These samples provide a starting point for how to integrate different services u
 * [`Sonarqube CE`](docker-compose/sonarqube/compose.yml) - Sample Sonarcube Community Eddition Static Application Security Testing (SAST) stack
 
 ### Multiple integrated services
+* [`Joomla / MariaDB`](docker-compose/joomla-mariadb/compose.yml) - Sample Joomla and MariaDB stack
+* [`Joomla / MySQL`](docker-compose/joomla-mysql/compose.yml) - Sample Joomla and MySQL stack
 * [`Wordpress / MariaDB`](docker-compose/wordpress-mariadb/compose.yml) - Sample Wordpress and MariaDB stack
 * [`Wordpress / MySQL`](docker-compose/wordpress-mysql/compose.yml) - Sample Wordpress and MySQL stack
 
 ### Single services
 * [`Apache`](docker-compose/apache/compose.yml) - Sample Apache Web Server instance
 * [`MariaDB`](docker-compose/mariadb/compose.yml) - Sample MariaDB database instance
-* [`MariaDB / phoMyAdmin`](docker-compose/mariadb-phpmuadmin/compose.yml) - Sample MariaDB database instance with phpMyAdmin support
+* [`MariaDB / phoMyAdmin`](docker-compose/mariadb-phpmyadmin/compose.yml) - Sample MariaDB database instance with phpMyAdmin support
+* [`MongoDB`](docker-compose/mongodb/compose.yml) - Sample MongoDB database instance
 * [`MySQL`](docker-compose/mysql/compose.yml) - Sample MySQL database instance 
-* [`MySQL / phoMyAdmin`](docker-compose/mysql-phpmuadmin/compose.yml) - Sample MySQL database instance with phpMyAdmin support
+* [`MySQL / phoMyAdmin`](docker-compose/mysql-phpmyadmin/compose.yml) - Sample MySQL database instance with phpMyAdmin support
 * [`Nginx`](docker-compose/nginx/compose.yml) - Sample Nginx Web Server instance
 * [`PostgreSQL`](docker-compose/postgresql/compose.yml) - Sample PostgreSQL database instance
 * [`PostgreSQL / pgAdmin`](docker-compose/postgresql-pgadmin/compose.yml) - Sample PostgreSQL database instance with pgAdmin support
