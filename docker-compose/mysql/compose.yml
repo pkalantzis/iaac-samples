@@ -26,11 +26,7 @@ services:
       MYSQL_PASSWORD: user
     volumes:
       - db_mysql_data_vol:/var/lib/mysql
-    networks:
-      - db_mysql_net
 
 # Shared Resources Section
 volumes:
   db_mysql_data_vol:
-networks:
-  db_mysql_net:

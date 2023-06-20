@@ -26,11 +26,7 @@ services:
       MARIADB_PASSWORD: user
     volumes:
       - db_mariadb_data_vol:/var/lib/mysql
-    networks:
-      - db_mariadb_net
 
 # Shared Resources Section
 volumes:
   db_mariadb_data_vol:
-networks:
-  db_mariadb_net:

@@ -27,8 +27,6 @@ services:
       MYSQL_PASSWORD: user
     volumes:
       - db_mysql_data_vol:/var/lib/mysql
-    networks:
-      - db_mysql_net
 
   # phpmyadmin Service Section
   phpmyadmin_srv:
@@ -42,11 +40,7 @@ services:
     environment:
       PMA_HOST: mysql_srv
       MYSQL_ROOT_PASSWORD: password 
-    networks:
-      - db_mysql_net
 
 # Shared Resources Section
 volumes:
   db_mysql_data_vol:
-networks:
-  db_mysql_net:

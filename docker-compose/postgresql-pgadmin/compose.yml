@@ -27,8 +27,6 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - db_postgres_data_vol:/var/lib/postgresql/data
-    networks:
-      - db_postgres_net
 
   # pgAdmin Service Section
   pgadmin_srv:
@@ -44,12 +42,8 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - db_pgadmin_data_vol:/var/lib/pgadmin
-    networks:
-      - db_postgres_net
       
 # Shared Resources Section
 volumes:
   db_postgres_data_vol:
   db_pgadmin_data_vol:
-networks:
-  db_postgres_net:

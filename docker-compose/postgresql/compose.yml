@@ -26,11 +26,7 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - db_postgres_data_vol:/var/lib/postgresql/data
-    networks:
-      - db_postgres_net
       
 # Shared Resources Section
 volumes:
   db_postgres_data_vol:
-networks:
-  db_postgres_net:

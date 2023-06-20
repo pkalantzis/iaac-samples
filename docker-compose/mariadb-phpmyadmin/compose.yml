@@ -27,8 +27,6 @@ services:
       MARIADB_PASSWORD: user
     volumes:
       - db_mariadb_data_vol:/var/lib/mysql
-    networks:
-      - db_mariadb_net
 
   # phpmyadmin Service Section
   phpmyadmin_srv:
@@ -42,11 +40,7 @@ services:
     environment:
       PMA_HOST: mariadb_srv
       MARIADB_ROOT_PASSWORD: password 
-    networks:
-      - db_mariadb_net
 
 # Shared Resources Section
 volumes:
   db_mariadb_data_vol:
-networks:
-  db_mariadb_net:

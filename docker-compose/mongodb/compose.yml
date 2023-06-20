@@ -28,8 +28,6 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
-    networks:
-      - db_mongo_net
 
 # Shared Resources Section
 volumes:
@@ -37,5 +35,3 @@ volumes:
   db_mongo_dataconf_vol:
   db_mongo_archive_vol:
   db_mongo_production_vol:
-networks:
-  db_mongo_net:
